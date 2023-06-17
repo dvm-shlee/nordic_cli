@@ -1,57 +1,68 @@
 import os
+import gzip
+import shutil
 from typing import Optional, List
-import mrt
+from .mrt import _pir
 
 try:
-    mrt = mrt.initialize()
+    nrd = _pir.initialize_package()
+    import matlab
 except Exception as e:
     print("Error initializing nordic package\\n:{}".format(e))
-    exit(1)
 
-def nordic(mag_image_path: str, 
-           phase_image_path: Optional[str] = None, 
-           output_dir: Optional[str] = None,
-           output_filename: Optional[str] = None, 
-           output_ext: str = "nii.gz",
-           modality: Optional[str] = None,
-           threshold_method: str = "NORDIC",
-           noise_volume_last: int = 0,
-           factor_error: float = 1.0,
-           full_dynamic_range: int = 0,
-           kernel_size_gfactor: List[int] = [14, 14, 1],
-           kernel_size_PCA: Optional[List[int]] = None,
-           **kwargs
-           ):
+def compress_file(input_file_path: str, output_file_path: str):
+    with open(input_file_path, 'rb') as f_in:
+        with gzip.open(output_file_path, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+
+def run(magni_path: str,
+        output_path: str,
+        phase_path: Optional[str] = None,
+        modality: Optional[str] = None,
+        threshold_method: str = "NORDIC",
+        noise_volume_last: int = 0,
+        factor_error: float = 1.0,
+        full_dynamic_range: int = 0,
+        kernel_size_gfactor: List[int] = [14, 14, 1],
+        kernel_size_pca: Optional[List[int]] = None,
+        **kwargs
+        ):
     """
-    Runs the NORDIC algorithm on MRI data. 
-    
+    Executes the NORDIC algorithm on a NIFTI dataset. 
+
     Args:
-        mag_image_path (str): Path to the input magnitude image file.
-        phase_image_path (str, optional): Path to the input phase image file. Defaults to None.
-        output_dir (str, optional): Directory to save the output image. Defaults to None.
-        output_filename (str, optional): Name of the output file. Defaults to None.
-        output_ext (str, optional): Extension of the output file. Defaults to "nii.gz".
-        modality (str, optional): Modality of the image, either "fMRI" or "dMRI". Defaults to None.
-        threshold_method (str, optional): Thresholding method, either "NORDIC" or "MP" (Marchenko-Pastur). Defaults to "NORDIC".
-        noise_volume_last (int, optional): Noise volume last parameter. Defaults to 0.
-        factor_error (float, optional): Factor error parameter. Defaults to 1.0.
-        full_dynamic_range (int, optional): Full dynamic range parameter. Defaults to 0.
-        kernel_size_gfactor (List[int], optional): Kernel size for the g-factor. Defaults to [14, 14, 1].
-        kernel_size_PCA (List[int], optional): Kernel size for PCA. Defaults to None.
+        magni_path (str): Path to the input magnitude image file.
+        output_path (str): Specifies the name of the output file. 
+        phase_path (str, optional): Path to the input phase image file. If not provided, 
+                                    the NORDIC algorithm runs with the 'magnitude_only' option. Defaults to None.
+        modality (str, optional): Indicates the image modality - "fMRI" or "dMRI". If not specified, defaults to None.
+        threshold_method (str, optional): Determines the thresholding method - 
+                                          either "NORDIC" or "MP" (Marchenko-Pastur). Defaults to "NORDIC".
+        noise_volume_last (int, optional): Specifies the parameter for noise volume last. Defaults to 0.
+        factor_error (float, optional): Specifies the factor error parameter. Defaults to 1.0.
+        full_dynamic_range (int, optional): Specifies the parameter for full dynamic range. Defaults to 0.
+        kernel_size_gfactor (List[int], optional): Specifies the kernel size for the g-factor. Defaults to [14, 14, 1].
+        kernel_size_pca (List[int], optional): Specifies the kernel size for PCA. If not provided, defaults to None.
+        **kwargs (any) : All other options supported by MATLAB's NORDIC_NIFTI are case sensitive.
 
     Raises:
-        FileNotFoundError: If input image file does not exist.
-        ValueError: If provided modality or thresholding method or image format is not supported.
+        FileNotFoundError: If the input image file does not exist.
+        ValueError: If the provided modality or thresholding method or image format is not supported.
     """
-    
+
+    output_dir, output_file = os.path.split(output_path)
+    output_list = output_file.split('.')
+    output_filename = output_list[0]
+    output_ext = ".".join(output_list[1:])
+            
     # Initialize arguments
     args = {
-        "DIROUT": output_dir if isinstance(output_dir, str) else '',
+        "DIROUT": output_dir,
         "noise_volume_last": noise_volume_last,
         "factor_error": factor_error,
         "full_dynamic_range": full_dynamic_range,
-        "kernel_size_gfactor": matlab.double(kernel_size_gfactor),
-        "kernel_size_PCA": matlab.double(kernel_size_PCA) if isinstance(kernel_size_PCA, list) else matlab.double([]),
+        "kernel_size_gfactor": matlab.int16(kernel_size_gfactor),
+        "kernel_size_PCA": matlab.int16(kernel_size_pca) if isinstance(kernel_size_pca, list) else [],
     }
 
     # Set modality specific parameters  
@@ -80,30 +91,25 @@ def nordic(mag_image_path: str,
         args[k] = v
     
     # Check if magnitude image exists
-    if not os.path.exists(mag_image_path):
-        raise FileNotFoundError(f"Input magnitude image file not found: {mag_image_path}")
+    if not os.path.exists(magni_path):
+        raise FileNotFoundError(f"Input magnitude image file not found: {magni_path}")
     
     # Check if phase image exists
-    if phase_image_path is None:
-        phase_image_path = ""
-    elif not os.path.exists(phase_image_path):
-        raise FileNotFoundError(f"Input phase image file not found: {phase_image_path}")
+    if phase_path is None:
+        phase_path = ""
         args["magnitude_only"] = 1
-    
-    # Construct output file path
-    output_filename = output_filename.split('.')[0]
-    output_path = f"{output_filename}.nii"
-    
+        args["use_magn_for_gfactor"] = 1
+    elif not os.path.exists(phase_path):
+        raise FileNotFoundError(f"Input phase image file not found: {phase_path}")
+
     # Run NORDIC algorithm
-    mrt.nordic(mag_image_path, phase_image_path, output_path, args)
+    nrd.nordic(magni_path, phase_path, output_filename, args, nargout=0)
     
     # Compress output if required
     if output_ext == "nii.gz":
-        import nibabel as nib
-        output_filepath = os.path.join(output_dir, output_path) if output_dir else output_path
-        output_compressed = os.path.join(output_dir, f"{output_filename}.{output_ext}") if output_dir else f"{output_filename}.{output_ext}"
-        nib.load(output_filepath).to_filename(output_compressed)
-        os.remove(output_filepath)
+        temp_output = os.path.join(output_dir, "{}.nii".format(output_filename))
+        compress_file(temp_output, output_path)
+        os.unlink(temp_output)
     elif output_ext == "nii":
         pass
     else:
