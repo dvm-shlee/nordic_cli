@@ -1,12 +1,26 @@
-# Licensing
- PLEASE NOTE BEFORE DOWNLOADING: THIS SOFTWARE HAS BEEN LICENSED TO NOUS IMAGING, INC. ON A COMMERCIAL NON-EXCLUSIVE BASIS.  
- IF YOU DOWNLOAD THIS SOFTWARE, NOUS WILL HAVE ACCESS TO YOUR NAME, EMAIL ADDRESS, AND OTHER INFORMATION WHICH YOU PROVIDE TO GITHUB AND NOUS MAY CONTACT YOU REGARDING THEIR PRODUCTS AND SERVICES
- 
+# Python CLI Tool for NORDIC
 
-# NORDIC_Raw
+This repository contains a command-line interface (CLI) tool written in Python for executing functions of the NORDIC_Raw software. The modifications are made under the terms of the original license, and the software is intended for educational and research purposes only.
+
+The original Matlab code, and the DEMO files can be found in the MATLAB subfolder. The CLI tool is compiled with MATLAB 2023b, and thus requires the Matlab runtime version 9.14. It is compatible with Python versions 3.8, 3.9, and 3.10.
+
+In order to run the CLI tool, you need to properly set up the MATLAB runtime in your environment. Instructions for installing the MATLAB runtime can be found [here](https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html), and instructions for configuring the MATLAB runtime are available [here](https://www.mathworks.com/help/compiler/mcr-path-settings-for-run-time-deployment.html).
+
+Please note that all products compiled with the MATLAB compiler are copyright MathWorks, Inc. Please abide by their licensing terms when using this software.
+
+# Licensing
+
+PLEASE NOTE BEFORE DOWNLOADING: THIS SOFTWARE HAS BEEN LICENSED TO NOUS IMAGING, INC. ON A COMMERCIAL NON-EXCLUSIVE BASIS. IF YOU DOWNLOAD THIS SOFTWARE, NOUS WILL HAVE ACCESS TO YOUR NAME, EMAIL ADDRESS, AND OTHER INFORMATION WHICH YOU PROVIDE TO GITHUB AND NOUS MAY CONTACT YOU REGARDING THEIR PRODUCTS AND SERVICES.
+
+© 2021 Regents of the University of Minnesota
+
+NORDIC and NIFTI_NORDIC is copyrighted by Regents of the University of Minnesota and covered by US 10,768,260. Regents of the University of Minnesota will license the use of NORDIC and NIFTI_NORDIC solely for educational and research purposes by non-profit institutions and US government agencies only. For other proposed uses, contact umotc@umn.edu. The software may not be sold or redistributed without prior approval. One may make copies of the software for their use provided that the copies, are not sold or distributed, are used under the same terms and conditions. As unestablished research software, this code is provided on an "as is'' basis without warranty of any kind, either expressed or implied. The downloading, or executing any part of this software constitutes an implicit agreement to these terms. These terms and conditions are subject to change at any time without prior notice.
+
+---
+
+# Original Software: NORDIC_Raw
 Matlab code for performing image reconstruction in MRI and performing the NORDIC denoising.
 Needs matlab version 2017b or newer
-
 
 # Overview
 The two files NORDIC and NIFTI_NORDIC perform similar concepts, locally low-rank denoising.
