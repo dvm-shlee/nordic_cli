@@ -1,4 +1,4 @@
-# Python CLI Tool for NORDIC
+# Python module and CLI Tool for NORDIC
 
 This repository contains a python function and ~~command-line interface (CLI) tool written in Python~~ for executing functions of the NIFTI_NORDIC powered by MATLAB compiler SDK. The addition of python wrapper are made under the terms of the original license, and the software is intended for educational and research purposes only.
 
