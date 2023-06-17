@@ -1,6 +1,6 @@
 # Python CLI Tool for NORDIC
 
-This repository contains a command-line interface (CLI) tool written in Python for executing functions of the NORDIC_Raw software. The modifications are made under the terms of the original license, and the software is intended for educational and research purposes only.
+This repository contains a command-line interface (CLI) tool written in Python for executing functions of the NORDIC_Raw software. The addition of python wrapper are made under the terms of the original license, and the software is intended for educational and research purposes only.
 
 The original Matlab code, and the DEMO files can be found in the MATLAB subfolder. The CLI tool is compiled with MATLAB 2023b, and thus requires the Matlab runtime version 9.14. It is compatible with Python versions 3.8, 3.9, and 3.10.
 
