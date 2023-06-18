@@ -2,7 +2,7 @@
 
 This repository contains a python function and ~~command-line interface (CLI) tool written in Python~~ for executing functions of the NIFTI_NORDIC powered by MATLAB compiler SDK. The addition of python wrapper are made under the terms of the original license, and the software is intended for educational and research purposes only.
 
-The original Matlab code, and the DEMO files can be found in the MATLAB subfolder. The CLI tool is compiled with MATLAB 2023b, and thus requires the Matlab runtime version 9.14. It is compatible with Python versions 3.8, 3.9, and 3.10.
+The original Matlab code, and the DEMO files can be found in the MATLAB subfolder. The CLI tool is compiled with MATLAB 2023a, and thus requires the Matlab runtime version 9.14. It is compatible with Python versions 3.8, 3.9, and 3.10.
 
 In order to run the CLI tool, you need to properly set up the MATLAB runtime in your environment. Instructions for installing the MATLAB runtime can be found [here](https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html), and instructions for configuring the MATLAB runtime are available [here](https://www.mathworks.com/help/compiler/mcr-path-settings-for-run-time-deployment.html).
 

@@ -20,9 +20,6 @@ def run(magni_path: str,
         phase_path: Optional[str] = None,
         modality: Optional[str] = None,
         threshold_method: str = "NORDIC",
-        noise_volume_last: int = 0,
-        factor_error: float = 1.0,
-        full_dynamic_range: int = 0,
         kernel_size_gfactor: List[int] = [14, 14, 1],
         kernel_size_pca: Optional[List[int]] = None,
         **kwargs
@@ -38,9 +35,6 @@ def run(magni_path: str,
         modality (str, optional): Indicates the image modality - "fMRI" or "dMRI". If not specified, defaults to None.
         threshold_method (str, optional): Determines the thresholding method - 
                                           either "NORDIC" or "MP" (Marchenko-Pastur). Defaults to "NORDIC".
-        noise_volume_last (int, optional): Specifies the parameter for noise volume last. Defaults to 0.
-        factor_error (float, optional): Specifies the factor error parameter. Defaults to 1.0.
-        full_dynamic_range (int, optional): Specifies the parameter for full dynamic range. Defaults to 0.
         kernel_size_gfactor (List[int], optional): Specifies the kernel size for the g-factor. Defaults to [14, 14, 1].
         kernel_size_pca (List[int], optional): Specifies the kernel size for PCA. If not provided, defaults to None.
         **kwargs (any) : All other options supported by MATLAB's NORDIC_NIFTI are case sensitive.
@@ -58,9 +52,6 @@ def run(magni_path: str,
     # Initialize arguments
     args = {
         "DIROUT": output_dir,
-        "noise_volume_last": noise_volume_last,
-        "factor_error": factor_error,
-        "full_dynamic_range": full_dynamic_range,
         "kernel_size_gfactor": matlab.int16(kernel_size_gfactor),
         "kernel_size_PCA": matlab.int16(kernel_size_pca) if isinstance(kernel_size_pca, list) else [],
     }
@@ -88,6 +79,9 @@ def run(magni_path: str,
 
     # Additional keyword arguments
     for k, v in kwargs.items():
+        # prevent override input arguments
+        if k in ["kernel_size_gfactor", "kernel_size_PCA"]:
+            pass
         args[k] = v
     
     # Check if magnitude image exists

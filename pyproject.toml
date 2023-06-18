@@ -1,1 +1,19 @@
-# todo
+[tool.poetry]
+name = "nordic-cli"
+version = "0.1.0"
+description = "Python library and CLI binding for NORDIC denoising"
+authors = ["Steen Moeller <moell018@umn.edu>"]
+license = "© 2021 Regents of the University of Minnesota"
+readme = "README.md"
+packages = [{include = "nordic"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+nordic = "nordic.script:nordic"
