@@ -24,7 +24,7 @@ $ pip install -e nordic_cli
 ```bash
 $ git clone https://github.com/dvm-shlee/nordic_cli.git
 $ cd nordic_cli
-$ docker build --no-cache -t nordic:0.1.0 .
+$ docker build --no-cache -t nordic:latest .
 ```
 
 ### via Docker Hub (recommended)
