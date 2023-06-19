@@ -16,6 +16,7 @@ This repository provides an additional interface to the NORDIC and NIFTI_NORDIC 
 ### via github
 ```bash
 $ git clone https://github.com/dvm-shlee/nordic_cli.git
+$ pip install poetry
 $ pip install -e nordic_cli
 ```
 
