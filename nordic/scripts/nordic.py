@@ -9,7 +9,7 @@ def main():
     parser.add_argument('-p', '--phase_path', help='Path to the input phase image file')
     parser.add_argument('-m', '--modality', help='Indicates the image modality - "fMRI" or "dMRI"')
     parser.add_argument('-t', '--threshold_method', default='NORDIC', help='Determines the thresholding method - "NORDIC" or "MP"')
-    parser.add_argument('-v', '--verbose', type=bool, default=False, help="Print out the true injecting input arguments to NIFTI_NORDIC MATLAB function")
+    parser.add_argument('-v', '--verbose', action='store_true', help="Print out the true injecting input arguments to NIFTI_NORDIC MATLAB function")
     parser.add_argument('--kernel_size_gfactor', nargs=3, type=int, default=[14, 14, 1], metavar=('sizex', 'sizey', 'sizez'), help='Specifies the kernel size for the g-factor')
     parser.add_argument('--kernel_size_pca', nargs=3, type=int, metavar=('sizex', 'sizey', 'sizez'), help='Specifies the kernel size for PCA')
     
