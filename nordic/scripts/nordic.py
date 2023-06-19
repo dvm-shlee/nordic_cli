@@ -27,7 +27,7 @@ def main():
     # Collect remaining unknown arguments into a dictionary
     kwargs = dict(arg.split(' ') for arg in ' '.join(unknown_args).split('--') if arg != '')
     
-    run(magni_path, output_path, phase_path, modality, threshold_method, kernel_size_gfactor, kernel_size_pca, verbose=verbose **kwargs)
+    run(magni_path, output_path, phase_path, modality, threshold_method, kernel_size_gfactor, kernel_size_pca, verbose=verbose, **kwargs)
     
 if __name__ == "__main__":
     main()
