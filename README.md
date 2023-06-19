@@ -12,25 +12,54 @@ Please note that all products compiled with the MATLAB compiler are copyright Ma
 
 This repository provides an additional interface to the NORDIC and NIFTI_NORDIC software, enabling Python and CLI execution. The core code, copyrighted by the Regents of the University of Minnesota, is governed by licensing terms detailed below. These terms delineate the rights and restrictions concerning the use, distribution, and modification of the software. By downloading or executing any part of this software, you implicitly agree to adhere to these terms. The repository does not alter these rights or terms in any way but serves to extend the software's accessibility. Please read and understand the licensing information provided below before using this repository.
 
+# Installation
+### via github
+```bash
+$ git clone https://github.com/dvm-shlee/nordic_cli.git
+$ pip install -e nordic_cli
+```
+
+### via Dockerfile
+```bash
+$ git clone https://github.com/dvm-shlee/nordic_cli.git
+$ cd nordic_cli
+$ docker build --no-cache -t nordic:0.1.0 .
+```
+
+### via Docker Hub (recommended)
+```bash
+$ docker pull sungholee/nordic
+```
+
 # Usage
+### As Python module
 ```python
 import nordic
 
 # magnitude only
-nordic.run('./sample.nii.gz', 
+nordic.run('./input.nii.gz', 
            'output.nii.gz',
            modality="fMRI",
            kernel_size_gfactor=[10, 10, 1],
            kernel_size_pca=[5, 5, 5])
 
 # with phase image
-nordic.run('./sample.nii.gz',
+nordic.run('./input.nii.gz',
            'output.nii.gz',
            phase_path = "./phase.nii.gz',
            modality="fMRI",
            kernel_size_gfactor=[10, 10, 1])
 ```
 
+### As CLI
+```bash
+$ nordic ./input.nii.gz ./output.nii.gz --modality fMRI --kernel_size_gfactor 10 10 1 --kernel_size_pca 5 5 5 
+```
+
+### As Docker Container
+```bash
+$ docker run --rm -it -v /my/working/path:/mnt/workdir sungholee/nordic /mnt/workdir/input.nii.gz /mnt/workdir/output.nii.gz --modality fMRI --kernel_size_gfactor 10 10 1 --kernel_size_pca 5 5 5
+```
 ---
 
 # Original Software: NORDIC_Raw
