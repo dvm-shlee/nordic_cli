@@ -16,4 +16,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-nordic = "nordic.script:nordic"
+nordic = "nordic.scripts.nordic:main"
