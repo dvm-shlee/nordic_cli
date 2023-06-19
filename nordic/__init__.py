@@ -101,6 +101,7 @@ def run(magni_path: str,
         print("- Summary of input arguments (injected to MATLAB, NIFTI_NORDIC)")
         for k, v in args.items():
             print(f" {k} = {v}")
+        print("\n")
 
     # Run NORDIC algorithm
     nrd.nordic(magni_path, phase_path, output_filename, args, nargout=0)
