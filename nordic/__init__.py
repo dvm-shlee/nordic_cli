@@ -107,6 +107,7 @@ def run(magni_path: str,
     
     # Compress output if required
     if output_ext == "nii.gz":
+        print("compressing NORDIC output")
         temp_output = os.path.join(output_dir, "{}.nii".format(output_filename))
         compress_file(temp_output, output_path)
         os.unlink(temp_output)
