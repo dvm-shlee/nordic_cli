@@ -22,6 +22,7 @@ def run(magni_path: str,
         threshold_method: str = "NORDIC",
         kernel_size_gfactor: List[int] = [14, 14, 1],
         kernel_size_pca: Optional[List[int]] = None,
+        verbose: bool = False,
         **kwargs
         ):
     """
@@ -51,7 +52,7 @@ def run(magni_path: str,
             
     # Initialize arguments
     args = {
-        "DIROUT": output_dir,
+        "DIROUT": f"{output_dir}/",
         "kernel_size_gfactor": matlab.int16(kernel_size_gfactor),
         "kernel_size_PCA": matlab.int16(kernel_size_pca) if isinstance(kernel_size_pca, list) else [],
     }
@@ -95,6 +96,11 @@ def run(magni_path: str,
         args["use_magn_for_gfactor"] = 1
     elif not os.path.exists(phase_path):
         raise FileNotFoundError(f"Input phase image file not found: {phase_path}")
+
+    if verbose:
+        print("- Summary of input arguments (injected to MATLAB, NIFTI_NORDIC)")
+        for k, v in args.items():
+            print(f" {k} = {v}")
 
     # Run NORDIC algorithm
     nrd.nordic(magni_path, phase_path, output_filename, args, nargout=0)
