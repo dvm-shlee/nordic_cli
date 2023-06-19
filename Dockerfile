@@ -1,11 +1,7 @@
-FROM mcr:2023a
+FROM sungholee/mcr:2023a
 
-ENV LANG=en_US.UTF-8
-
-RUN git clone https://github.com/dvm-shlee/nordic_cli.git /app
-WORKDIR /app
-RUN pip3 install poetry
-RUN pip3 install -e .
+RUN git clone https://github.com/dvm-shlee/nordic_cli.git /src && pip3 install poetry && pip3 install -e /src && mkdir /workdir
+WORKDIR /workdir
 
 # For Interactive mode
 CMD ["bash"]
