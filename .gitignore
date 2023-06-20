@@ -1,6 +1,7 @@
 *.pyc
 __pycache__
 __pycache__/*
+*.lock
 .idea
 .idea/*
 .DS_Store
