@@ -4,8 +4,8 @@ from .. import run
 def main():
     parser = argparse.ArgumentParser(description='Command line tool(CLI) for NORDIC Denoising')
     
-    parser.add_argument('-i', '--magni_path', help='Path to the input magnitude image file')
-    parser.add_argument('-o', '--output_path', help='Specifies the name of the output file')
+    parser.add_argument('magni_path', help='Path to the input magnitude image file')
+    parser.add_argument('output_path', help='Specifies the name of the output file')
     parser.add_argument('-p', '--phase_path', help='Path to the input phase image file')
     parser.add_argument('-m', '--modality', help='Indicates the image modality - "fMRI" or "dMRI"')
     parser.add_argument('-t', '--threshold_method', default='NORDIC', help='Determines the thresholding method - "NORDIC" or "MP"')

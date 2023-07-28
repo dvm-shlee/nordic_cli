@@ -54,12 +54,12 @@ nordic.run('./input.nii.gz',
 
 ### As CLI
 ```bash
-$ nordic -i ./input.nii.gz -o ./output.nii.gz --modality fMRI --kernel_size_gfactor 10 10 1 --kernel_size_pca 5 5 5 
+$ nordic ./input.nii.gz ./output.nii.gz --modality fMRI --kernel_size_gfactor 10 10 1 --kernel_size_pca 5 5 5 
 ```
 
 ### As Docker Container
 ```bash
-$ docker run --rm -it -v /my/working/path:/mnt/workdir sungholee/nordic -i /mnt/workdir/input.nii.gz -o /mnt/workdir/output.nii.gz --modality fMRI --kernel_size_gfactor 10 10 1 --kernel_size_pca 5 5 5
+$ docker run --rm -it -v /my/working/path:/mnt/workdir sungholee/nordic /mnt/workdir/input.nii.gz /mnt/workdir/output.nii.gz --modality fMRI --kernel_size_gfactor 10 10 1 --kernel_size_pca 5 5 5
 ```
 ---
 
