@@ -21,7 +21,8 @@ def run(magni_path: str,
         modality: Optional[str] = None,
         threshold_method: str = "NORDIC",
         kernel_size_gfactor: List[int] = [14, 14, 1],
-        kernel_size_pca: Optional[List[int]] = None,
+        kernel_size_pca: Optional[List[int]] = [5, 5, 5],
+        gfactor_path_overlap: Optional[int] = None,
         verbose: bool = False,
         **kwargs
         ):
@@ -37,7 +38,8 @@ def run(magni_path: str,
         threshold_method (str, optional): Determines the thresholding method - 
                                           either "NORDIC" or "MP" (Marchenko-Pastur). Defaults to "NORDIC".
         kernel_size_gfactor (List[int], optional): Specifies the kernel size for the g-factor. Defaults to [14, 14, 1].
-        kernel_size_pca (List[int], optional): Specifies the kernel size for PCA. If not provided, defaults to None.
+        kernel_size_pca (List[int], optional): Specifies the kernel size for PCA. If not provided, defaults to [5, 5, 5].
+        gfactor_path_overlap (int, optional): 
         **kwargs (any) : All other options supported by MATLAB's NORDIC_NIFTI are case sensitive.
 
     Raises:
@@ -96,6 +98,9 @@ def run(magni_path: str,
         args["use_magn_for_gfactor"] = 1
     elif not os.path.exists(phase_path):
         raise FileNotFoundError(f"Input phase image file not found: {phase_path}")
+
+    if gfactor_path_overlap:
+       args["gfactor_path_overlap"] = 2 
 
     if verbose:
         print("- Summary of input arguments (injected to MATLAB, NIFTI_NORDIC)")
