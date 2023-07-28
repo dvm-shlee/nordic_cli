@@ -28,9 +28,10 @@ def main():
     
     # Collect remaining unknown arguments into a dictionary
     
+    kwargs = dict()
+    
     if len(unknown_args):
         argindice = [i for i, v in enumerate(unknown_args) if '--' in v]
-        kwargs = dict()
         for i in argindice:
             key = unknown_args[i][2:]
             val = unknown_args[i+1]
