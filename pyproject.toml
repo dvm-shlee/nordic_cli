@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nordic-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python library and CLI binding for NORDIC denoising"
 authors = ["Steen Moeller <moell018@umn.edu>"]
 license = "© 2021 Regents of the University of Minnesota"
